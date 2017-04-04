@@ -1,0 +1,2 @@
+在一个数组中找出最大值和最小值:
+Math.max(...array) Math.min(...array)

@@ -8,3 +8,6 @@ function findMissingNumber(sequence){
   
 3.比较结果有三种情况时，用三元运算符如下:
   return (left==right)?"Balance":(left>right)?"Left":"Right";
+
+4.Test Driven Development(TDD) writting your own tests 
+6 kyu Word a10n(abbreviation)

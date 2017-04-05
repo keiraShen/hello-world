@@ -1,6 +1,10 @@
-在一个数组中找出最大值和最小值:
+1.在一个数组中找出最大值和最小值:
 Math.max(...array) Math.min(...array)
-see the test input:
+
+2.see the test input:
 function findMissingNumber(sequence){
   console.log(sequence);
   }
+  
+3.比较结果有三种情况时，用三元运算符如下:
+  return (left==right)?"balance":(left>right)?"Left":"Right";

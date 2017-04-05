@@ -11,3 +11,20 @@ function findMissingNumber(sequence){
 
 4.Test Driven Development(TDD) writting your own tests 
 6 kyu Word a10n(abbreviation)
+
+5.找出指定的间隔的两个素数
+function step(g, m, n) {
+var j=0;
+var allprime = [];
+var isPrime = function(x) {for (var i=2; i*i<=x; i++) { if (x % i == 0) return false; } return true;}
+for(var i = m; i <= n; i++)
+{
+        if(isPrime(i)) 
+        {
+            allprime[j++]=i;
+            if(allprime.indexOf(i-g)!=-1) return [i-g, i];
+            
+        }
+}      
+    return null;
+}

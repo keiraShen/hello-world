@@ -7,4 +7,4 @@ function findMissingNumber(sequence){
   }
   
 3.比较结果有三种情况时，用三元运算符如下:
-  return (left==right)?"balance":(left>right)?"Left":"Right";
+  return (left==right)?"Balance":(left>right)?"Left":"Right";

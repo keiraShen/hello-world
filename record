@@ -52,6 +52,7 @@ Array.prototype.square = function() {
   }
   return squared;
 }
+
 Array.prototype.cube = function() {
   var cubed = [];
   for (var i = 0; i < this.length; i++) {

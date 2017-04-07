@@ -1,0 +1,34 @@
+Function composition mainly presents itself in lambda calculus and computability. In simple mathematical notation:
+f3 = compose( f1 f2 )
+   Is equivalent to...
+f3(a) = f1( f2( a ) )
+Create a compose function to carry out this task, which will be passed two functions or lambdas. 
+Remember that the resulting composed function may be passed multiple arguments!
+compose(f , g)(x)
+=> f( g( x ) )
+function compose(f ,g){
+return function() {
+        return f.call(this, g.apply(this, arguments));
+    };
+};
+or
+function compose(f, g) {
+  return function() {
+    return f(g.apply(this, arguments));
+  };
+}
+Test Cases
+add1 = function(a){return a + 1}
+min1 = function(a){return a - 1}
+div2 = function(a){return a / 2}
+add15 = function(a){return a + 15}
+id = function(a){return a}
+addall5 = function(a,b,c,d,e){return a+b+c+d+e}
+
+Test.expect( compose(add1,id)(0) == 1 )
+Test.expect( compose(add1,div2)(2) == 2, "Order should be as specified!" )
+Test.expect( compose(add1,addall5)(1,2,3,4,5) == 16, "Functions may be called with many arguments.")
+
+Test.expect( compose(add15,id)(0) == 15 )
+Test.expect( compose(id,add15)(0) == 15 )
+CodeWars.

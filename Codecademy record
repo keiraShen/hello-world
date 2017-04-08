@@ -1,0 +1,19 @@
+//start
+It's is also possible to label HTML elements with more than one class.
+You learned that elements that share a styling (e.g. typeface) are labeled with the same class. 
+When those same elements must also be differentiated, however, labeling with an additional class is helpful.
+<h1 class="book domestic">The Way of the Deep</h1>
+
+<h1 class="book foreign">A Night in the Sky</h1>
+.book {
+  font-family: Georgia, serif;
+}
+
+.domestic {
+  font-color: #0902CC;
+}
+
+.foreign {
+  font-color: #B097DD;
+}
+//end

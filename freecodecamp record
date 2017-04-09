@@ -1,1 +1,2 @@
-Browsers read CSS from top to bottom.That means that, 
+Browsers read CSS from top to bottom.That means that, in the event of a conflict, the browser will use whichever CSS declaration came last.
+It doesn't matter whether you declare this css above or below pink-text class, since id attribute will always take precedence.

@@ -14,3 +14,4 @@ When margin: auto is used, an element will center relative to its container.
 For example, the div in the example above was centered relative to the width of the body. 
 If the div was contained in larger div, the smaller div would center relative to the width of the larger div. 
 This is important to keep in mind when attempting to center nested elements, like divs.           //end
+

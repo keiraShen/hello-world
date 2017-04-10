@@ -1,2 +1,12 @@
+//start
 Browsers read CSS from top to bottom.That means that, in the event of a conflict, the browser will use whichever CSS declaration came last.
-It doesn't matter whether you declare this css above or below pink-text class, since id attribute will always take precedence.
+It doesn't matter whether you declare this css above or below pink-text class, since id attribute will always take precedence. 
+In-line styles will override all the CSS declarations in your style element.//end
+//start
+In order to center an element, a width must be set for that element. 
+Otherwise, the width of the div will be automatically set to the full width of its containing element, 
+like the <body>, for example. It's not possible, therefore, to center an element that takes up the full width of the page.
+div.headline {
+  width: 400px;
+  margin: auto;
+}

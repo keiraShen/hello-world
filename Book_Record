@@ -1,0 +1,18 @@
+验证邮件地址：
+模式=LocalName@DomainPrefix.DomainSuffix
+匹配的正则表达式：  /^\w+@\w+/.\w{2,3}$/
+但是邮件地址比它给人的第一眼印象更为复杂。为数据验证构筑可靠的邮件模式时，其实还要考虑几种基础邮件格式的变化版。
+1.用户名称部分包含下划线、连字符 i-lovecube_lovers@youcube.ca
+2.用户名称部分包含点号、加号tor.howard+jason@bannerocity.com
+3.域名的prefix部分包含连字符 rocky@i-rock.mobi
+4.域名的suffix部分包含4个字符 rocky@i-rock.mobi  
+5.多一个域suffix，他只是域名的额外部分 ruby@youcube.com.nz
+邮件地址呈现了模式中需要匹配可选性字符的需求   从集合中匹配可选字符
+{在正则表达式里具有特殊意义的字符需要经过转义，才能把实际字符放在正则表达式里。下列字符前均需加上反斜线（\)做转义：
+[ \ ^ $ . | ? * + () }
+模式= LocalName@DomainPrefix.DomainSuffix
+第一部分： 任何字母数字加上“ . ” “ — ” “ _  ” “ + ”
+第二部分： 任何字母数字加上“ — ”
+第三部分： 点号被视为域名Suffix的一部分
+第四部分： 任何2,3,4个字符的字母数字，前接点号。
+/^[\w\.—_\+]+@[\w—]+(\.\w{2,4})+$/

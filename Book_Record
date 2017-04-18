@@ -47,3 +47,60 @@ console.log(items !== itemsRef);
 
 call方法使用第一个参数来指定上下文，
 
+4 成员可见性
+Javascript只有两种作用域：全局作用域和当前执行函数的作用域。闭包是实现对私有成员进行特权访问的关键。他的工作原理是这样：在用于构造对象的函数内部使用
+var创建私有成员。(至于这些私有成员到底是函数还是属性，这就由你来决定)在该作用域中创建一个函数，他肯定可以访问到私有数据——两者都处于相同的作用域中。
+将这个新函数加入对象中，并将其(私有数据除外)设置为公共属性。该函数和数据都源自同一个作用域，因此可以间接访问数据。代码如下：
+var Person = {
+	firstName : 'john',
+	lastName : 'Shen',
+	birthDate : new Date('1997-02-12'),
+	gender : 'male',
+	getAge : function() {
+		var today = new Date();
+		var diff = today.getTime()-this.birthDate.getTime();
+		var year = 365.25*24*60*60*1000;
+		return Math.floor( diff/year );
+	},
+	toString : function() {
+		return this.firstName + ' ' + this.lastName + ' is a ' + this.getAge() + ' years-old ' + this.gender;
+	},
+	extend : function( config ) {
+		var temp = Object.create( this );
+		console.log( temp.toString() );
+		for( var key in config ) {
+			if( config.hasOwnProperty( key ) ) {
+				temp[key] = config[ key ];
+			}
+		}
+
+	var creationTime = new Date();
+	var getCreationTime = function() {
+		return creationTime;
+	}
+	temp.getCreationTime = getCreationTime;
+	return temp;
+	}
+};
+
+var Teacher = Person.extend( {
+	job : 'teacher',
+	subject : 'English literature',
+	yearsExp : 5,
+	toString : function() {
+		var originalStr = Person.toString.call( this );
+		return originalStr + ' ' + this.subject + ' teacher. ';
+	}
+} );
+var patty = Teacher.extend( {
+	firstName : 'karlie',
+	lastName : 'Selina',
+	subject : 'chemistry',
+	yearsExp : 20,
+	gender : 'female'
+} );
+console.log( patty.toString() );
+console.log( 'The Teacher object was created at %s', patty.getCreationTime() );
+creationTime作为函数extend()的局部变量，在函数外部是不可用的。在控制台使用console.dir查看Person，你会发现creationTime并非Person的公共属性。
+getCreationTime最初也是这样。利用一个简单的赋值，我们将getCreationTime()安放在所返回的对象实例中。现在，getCreationTime()成为了一个公共方法，
+可以对creationTime中的私有数据进行特权访问。PS：考虑到内存问题，要谨慎使用特权方法，把他们留给需要严格控制访问的数据。

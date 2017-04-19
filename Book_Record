@@ -104,3 +104,42 @@ console.log( 'The Teacher object was created at %s', patty.getCreationTime() );
 creationTime作为函数extend()的局部变量，在函数外部是不可用的。在控制台使用console.dir查看Person，你会发现creationTime并非Person的公共属性。
 getCreationTime最初也是这样。利用一个简单的赋值，我们将getCreationTime()安放在所返回的对象实例中。现在，getCreationTime()成为了一个公共方法，
 可以对creationTime中的私有数据进行特权访问。PS：考虑到内存问题，要谨慎使用特权方法，把他们留给需要严格控制访问的数据。
+
+5 用于检索元素文本内容的通用函数
+  function text(e) {
+	var t = '' ;
+	//如果传入的是一个元素，则获得其子元素；
+        //否则认为传入的是一个数组
+	e = e.childNodes || e;
+	//查找所有的子节点
+	for ( var j=0; j<e.length; j++ ) {
+		t += e[j].nodeType != 1 ?
+		e[j].nodeValue : text(e[j].childNodes);
+	}
+	//返回获得的文本
+	return t;
+}
+//获取<p>元素的文本内容
+var pElem = document.getElementsByTagName ( 'p' );
+console.log( text( pElem ) );
+
+6 元素属性值的获取和设置
+function attr(elem, name, value) {
+	//确保所提供的名称合法
+	if( !name || name.constructor != String ) return '';
+	//是否需要更改名称
+	name = { 'for': 'htmlFor', 'className': 'class' }[name] || name;
+	//如果需要设置特性值
+	if( typeof value != 'undefined' ) {
+		//先使用最快的设置方式
+		elem[name] = value;
+		//如果可以的话，使用setAttribute
+		if ( elem.setAttribute )
+			elem.setAttribute(name, value);
+	}
+	//返回特性值
+	return elem[name] || elem.getAttribute( name ) || '';
+attr( document.getElementsByTagName( 'li' )[0], 'class', 'isme' );
+var liattr = document.getElementById( 'everywhere' ).getAttribute( 'class' );
+console.log( liattr ); //isme	
+}

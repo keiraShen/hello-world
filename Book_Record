@@ -138,8 +138,59 @@ function attr(elem, name, value) {
 			elem.setAttribute(name, value);
 	}
 	//返回特性值
-	return elem[name] || elem.getAttribute( name ) || '';
+	return elem[name] || elem.getAttribute( name ) || '';			
+}
+//使用attr函数从DOM元素中设置及检索特性值
 attr( document.getElementsByTagName( 'li' )[0], 'class', 'isme' );
 var liattr = document.getElementById( 'everywhere' ).getAttribute( 'class' );
-console.log( liattr ); //isme	
+console.log( liattr ); //isme
+
+7 术语定义的动态出发
+//等待DOM准备完毕
+document.addEventListener('DOMContentLoaded', addEventClickToTerms);
+
+//看用户是否单击术语
+function addEventClickToTerms() {
+	var dt = document.getElementsByTagName( 'dt' );
+	for( var i=0; i<dt.length; i++ ) {
+		dt[i].addEventListener( 'click', checkIfOpen);
+	}
 }
+//检查术语定义是否已经展开
+//因为第一个兄弟节点是一个文本节点(供单击的文字)，所以需要使用两个nextSibling
+//如果没有被单击，其样式应该为''。如果被单击，样式则为'none',因此需要在if语句中检查这两种情况
+function checkIfOpen(e) {
+	if( e.target.nextSibling.nextSibling.style.display == '' || e.target.nextSibling.nextSibling.style.display == 'none' ) {
+		e.target.nextSibling.nextSibling.style.display = 'block';
+	}else{
+		e.target.nextSibling.nextSibling.style.display = 'none';
+	}
+}
+
+8 创建新DOM元素的通用函数
+function create( elem ) {
+	return document.createElementNS ?
+	       document.createElementNS( 'http://www.ws.org/1999/xhtml', elem ) :
+		   document.createElement( elem );
+}
+var div = create( 'div' );
+div.className = 'items';
+div.id = 'all';
+
+9 一个可以在另一个函数之前插入元素的函数
+function addElement() {
+	//获取文档中的有序列表
+	//记住getElementById会返回一个类似对象的数组	
+	var orderList = document.getElementById( 'myList' );
+	//创建<h1>，增加一个文本节点，并将其追加到<h1>之后
+	var h = document.createElement( 'h1');
+	    h.appendChild( document.createTextNode( 'Thanks for visiting' ));
+	orderList.insertBefore(h, orderList[0]);    //记忆参数的次序：要把第一个元素插入到第二个元素的前面
+}
+
+
+
+
+
+
+

@@ -187,8 +187,58 @@ function addElement() {
 	    h.appendChild( document.createTextNode( 'Thanks for visiting' ));
 	orderList.insertBefore(h, orderList[0]);    //记忆参数的次序：要把第一个元素插入到第二个元素的前面
 }
+向DOM中插入HTML
+假设有一个空的<ol>元素，你希望在里面增加一些<li>,代码如下：
+  document.getElementsByTagName( 'ol' )[0].innerHTML = "<li>mew.</li><li>CARROT.</li>";
 
+10 向已有的有序列表中添加新的DOM节点
+function appendNode() {
+  //获取已有的<li>并创建一个新的<li>
+  var listItems = document.getElementsByTagName( 'li' );
+  var newListItems = document.createElement( 'li' );
+      //追加一个新的文本节点
+      newListItems.appendChild( document.createTextNode( 'Mouse trap.'));
+      //将其追加为已有列表的第四项
+      listItems[2].appendChild( newListItems ); 
+  }
 
+  function addNode() {
+  //获得整个列表
+  var hItems = document.getElementById( 'myList' );
+  ////获取所有的<li>
+  var listItems = document.getElementsByTagName( 'li' );
+  //创建一个新的<li>并加入文本节点
+  var newListItems = document.createElement( 'li' );
+      newListItems.appendChild( document.createTextNode( 'Zebra.'));
+      //加入到列表中，使第二项向后移动成为第三项
+      hItems.insertBefore( newListItems, listItems[1] ); 
+  }
+  
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Expandable Definition List</title>
+  <style>dd { display: none; }</style>
+</head>
+<body>
+<h1  onclick="appendNode()">Expandable Definition List</h1>
+<dl>
+    <dt id="ohme" onclick="addNode()">Cats</dt>
+	<dd>A furry, friendly, creature.</dd>
+	<dt>Dog</dt>
+	<dd>Like to play and run around</dd>
+	<dt>Mice</dt>
+	<dd>Cats like to eat them.</dd>
+</dl>
+<ol id="myList">
+    <li>mew.</li>
+    <li>CARROT.</li>
+    <li>Tiger.</li>
+    <li>Pig.</li>
+</ol>
+<script src="book.js"></script>
+</body>
+</html>
 
 
 

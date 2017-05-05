@@ -33,3 +33,34 @@ function init () {}
 
 4 insertBefore 函数用法：
 parentOfBeforeNode.insertBefore( nodeToInsert, beforeNode )    要把第一个元素插入到第二个元素的前面 
+
+5 处理父类方法的方法
+Object.prototype.superior = function (name) {
+	var that = this,
+	method = that[name];
+	return function () {
+		return method.apply(that, arguments);      //return method.apply(that);
+	}
+};
+var cat = function (spec) {
+	spec.saying = spec.saying || 'meow';
+	var that = {};
+	that.says = function () {
+		return spec.saying || '';
+	};
+	that.get_name = function () {
+		return that.says() + ' ' + spec.name + ' ' + that.says();
+	};
+	return that;
+};
+var coolcat = function (spec) {
+	var that = cat(spec),
+	    super_get_name = that.superior('get_name');
+	that.get_name = function () {
+		return 'like ' + super_get_name() + ' baby';
+	};
+	return that;
+};
+var mycoolcat = coolcat({name : 'Bix'});
+var name = mycoolcat.get_name();
+//           like meow Bix meow baby

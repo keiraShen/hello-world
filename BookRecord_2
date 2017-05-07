@@ -64,3 +64,17 @@ var coolcat = function (spec) {
 var mycoolcat = coolcat({name : 'Bix'});
 var name = mycoolcat.get_name();
 //           like meow Bix meow baby
+
+6 
+// This is a recursive function which will visit every node in a tree,or a subtree,in the same order that they'll be displayed in HTML.
+// You could pass in document or document.body and then also pass in a function, 
+// and that function will be called for each node that we visit.
+
+function walkTheDom(node, func) {
+	func(node);
+	node = node.firstChild;
+	while (node) {
+		walkTheDom(node, func);
+		node = node.nextSibling;
+	}
+}

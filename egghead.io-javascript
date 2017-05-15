@@ -1,0 +1,219 @@
+///////////Filter函数///////////////////
+let drag = [
+{name: 'flukkity', element: 'lighting'},
+{name: 'noomi', element: 'lighting'},
+{name: 'karo', element: 'fire'},
+{name: 'doomer', element : 'timewarp'}
+]
+
+let hasElem = function (elem) {
+    return function (obj) {
+		return obj.element === elem
+	}
+}
+
+let light = drag.filter(hasElem('lighting'));
+    
+console.log(light);
+
+///////////计数器/////////////////////////////
+
+
+var Counter = (function() {
+    var privateCounter = 0;
+	function changeBy(val) {
+		privateCounter += val;
+	}
+	return {
+		increment: function() {
+			changeBy(1);
+		},
+		decrement: function() {
+			changeBy(-1);
+		},
+		value: function() {
+			return privateCounter;
+		}
+	}
+})();
+
+//////////////Arrow Function//////////////////////////////////
+
+var deliveryBoy = {
+	name: "Karlie",
+	handleMessage: (message, handler) => handler(message),
+	receive: function () {
+		this.handleMessage("Hello, ",mess => console.log(mess +this.name))
+	}
+}
+deliveryBoy.receive();
+
+///////////////Destructuring Assignment in ES6/////////////////////////////////
+var people = [
+    {
+		"firstName": "Karlie",
+		"lastName": "Kloss",
+		"email": "shenebhd@163.com"
+	},
+	{
+		"firstName": "Keira",
+		"lastName": "Knightly",
+		"email": "tgbcdff@163.com"
+	},
+	{
+		"firstName": "Gigi",
+		"lastName": "Haidid",
+		"email": "kjgdcbnu@163.com"
+	}
+]
+people.forEach(({lastName}) => console.log(lastName));
+//this is going to skip the first one, look up the second one and name it Skyler
+var [, Skyler] = people; 
+
+function logEmail({email}) {
+	conosle.log(email);
+} 
+logEmail(Skyler);
+
+////////////////////////////Promises with ES6/////////////////////////////////
+var d = new Promise((resolve, reject) => {
+	setTimeout(() => {
+		if (false) {
+		resolve("Hello World");
+	} else{
+		reject("no bueno");
+	}
+	}, 2000);	
+});
+
+d.then((data) => console.log('success :', data), (error) => {
+	console.log('new error msg: ', error);
+});
+
+// d.catch((error) => console.error('error :', error));
+
+d.then((data) => {
+    console.log('success :', data);
+    return 'foo bar'
+}).
+  then((data) => console.log('success 2 yoyo:', data)).
+  catch((error) => console.error('error :', error));
+//////////////////new error //////////////////////////////////  
+d.then((data) => {
+    console.log('success :', data);
+    return 'foo bar'
+}).
+  then((data) => {
+    console.log('success 2 yoyo:', data);
+  throw new Error('error throw!');
+  })
+  catch((error) => console.error('error :', error));
+
+///////////ES6 (ES2015) - Generators//////////////////////////////
+function* greet() {
+	console.log(`you called 'next()'`);
+}
+let greeter = greet();
+console.log(greeter);
+let next = greeter.next();
+console.log(next);
+
+///////////////////Maps and WeakMaps with ES6/////////////////
+var myMap = new Map();
+//API
+/*
+set()
+get()
+size
+clear()
+has()
+*/
+var myObj = {};
+var myFunc = function() {};
+
+myMap.set(myObj, 'bar');
+myMap.set(myFunc, 'world');
+//myMap.clear();
+console.log(myMap.has('qewrt'));
+
+//Iterators
+//keys()  values()  entries()
+
+for (var key of myMap.keys()) {
+	console.log(key)
+}
+for (var [key, value] of myMap.entries()) {
+	console.log(key + ' = ' + value);
+}
+
+//////////////////ES6 Parameter Object Destructuring with Required Values////
+console.clear();
+
+function ajax({
+	type = "get",
+	url = requiredParameter("url"),
+	data = {},
+	success = requiredParameter("success"),
+	error = () => {},
+    isAsync = true } = {}) {
+		console.log(JSON.stringify({type, url, data, success, error,
+		isAsync}, null, 2));
+	}
+	
+	function requiredParameter(name) {
+		throw new Error(`Missing parameter "${name}"`);
+	}
+	
+	try {
+		ajax({
+			url: "http://my.api.io",
+			success: () => {}
+		});
+	} catch (e) {console.warn(e.message)}
+	
+///////////ES6 Rest Parameters////////////////////////////////////
+	function Store() {
+		var aisle = {
+			fruit: [],
+			vegetable: []
+		}
+		return {
+			add: function(catagory) {
+				var items = Array.prototype.splice.call(arguments, 1);
+				console.log(items);
+				items.forEach(function(value, index, array) {
+				   	aisle[catagory].push(value);
+				}) 
+			},
+			aisle: aisle
+		}
+	}
+	var myFruitStore = new Store();
+	myFruitStore.add('fruit', 'apple', 'orange', 'watermelon');
+	console.log(myFruitStore.aisle);
+
+///////////////////////////Reduce///////////////////////////////////////////
+var votes = [
+    "angular",
+	"react",
+	"vanilla",
+	"ember",
+	"vue",
+	"react",
+    "angular",
+	"react",
+	"vanilla",
+	"ember",
+	"vue",
+	"react",
+	"react"
+];
+var result = votes.reduce(function(tolly, vote) {
+	if (!tolly[vote]) {
+		tolly[vote] = 1;
+	} else {
+		tolly[vote] = tolly[vote] +1;
+	}
+	return tolly; // it's very important that you remember to return your accumulator.
+}, {});
+console.log(result);

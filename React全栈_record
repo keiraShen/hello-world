@@ -1,0 +1,22 @@
+1. 展开操作符用于数组字面量
+let arr1 = [1, 2, 3];
+let arr2 = [4, 5, 6];
+let arr3 = [...arr1, ...arr2];
+console.log(arr3); //[ 1, 2, 3, 4, 5, 6 ]
+用于对象
+let mike = {
+  name: 'mike',
+  age: 50
+};
+mike = {...mike, sex: 'male'};
+console.log(mike);
+
+2. 解构赋值
+解构数组
+let foo = ['one', 'two', 'three'];
+let [male, ...female] = foo;
+console.log(`${male}, ${female}`);  //one, two,three
+解构对象 （变量名必须一致）
+let person = {firstname: 'shawn', male: true};
+let {firstname, male} = person;
+console.log(`${firstname}, ${male}`);   //shawn, true

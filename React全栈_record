@@ -20,3 +20,16 @@ console.log(`${male}, ${female}`);  //one, two,three
 let person = {firstname: 'shawn', male: true};
 let {firstname, male} = person;
 console.log(`${firstname}, ${male}`);   //shawn, true
+
+3.JSX
+HTML类型的标签第一个字母用小写来表示
+React组件标签第一个字母用大写来表示
+import React from 'react'
+class Headline extends React.Component {
+...
+  render() {
+    return <h1>Hello World</h1>
+  }
+}
+let headline = <Headline />; 等同于 
+let headline = React.createElement(Headline);

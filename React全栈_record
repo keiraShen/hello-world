@@ -36,3 +36,54 @@ let headline = React.createElement(Headline);
 
 4. 无状态函数式组件
 若组件没有内部state，不需要组件生命周期函数，那么，可以把这类组件写成一个纯函数的形式，称为 stateless functional component
+import React from 'react';
+//import ReactDOM from 'react-dom'
+import PropTypes from 'prop-types';
+
+const ApropTypes = {
+  name: PropTypes.string.isRequired,
+  age: PropTypes.number.isRequired
+};
+
+class App extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {liked: 0, 
+      hobbies: ['skating', 'rock music', 'movie']};
+    this.likedCallback = this.likedCallback.bind(this);
+  }
+  likedCallback() {
+    let liked = this.state.liked;
+    liked++;
+    this.setState({liked});
+  }
+ render() {
+    return (
+      <div className="Div">
+        <h1>My name is {this.props.name}</h1>
+        <h2>My age is {this.props.age}</h2>
+        <button onClick={this.likedCallback}>
+        Like It!
+        </button>
+        <h2>how many times you liked me: {this.state.liked}</h2>
+        <ul>{this.state.hobbies.map((hobby, i) => <Hobby 
+          key={i} hobby={hobby} />)}
+        </ul>
+      </div>
+    )
+  }  
+}
+const HpropTypes = {
+  hobby: PropTypes.string.isRequired
+}
+function Hobby(props) {
+  return <li>{props.hobby}</li>;
+}
+Hobby.PropTypes = HpropTypes;
+
+App.propTypes = ApropTypes;
+
+export default App
+
+
+

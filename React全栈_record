@@ -33,3 +33,6 @@ class Headline extends React.Component {
 }
 let headline = <Headline />; 等同于 
 let headline = React.createElement(Headline);
+
+4. 无状态函数式组件
+若组件没有内部state，不需要组件生命周期函数，那么，可以把这类组件写成一个纯函数的形式，称为 stateless functional component
